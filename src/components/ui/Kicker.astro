@@ -1,0 +1,42 @@
+---
+interface Props {
+  number?: string;
+  label: string;
+}
+
+const { number, label } = Astro.props;
+---
+
+<p class="kicker">
+  {number && <span class="kicker-num">{number}</span>}
+  <span class="kicker-label">{label}</span>
+</p>
+
+<style>
+  .kicker {
+    display: flex;
+    align-items: baseline;
+    gap: 1.25rem;
+    margin-bottom: clamp(1.5rem, 4vh, 2.5rem);
+    font-family: var(--mono);
+    font-size: var(--step--1);
+    font-weight: 400;
+    letter-spacing: .18em;
+    line-height: 1.5;
+    text-transform: uppercase;
+    color: var(--kicker-color, var(--ink-soft));
+  }
+
+  .kicker-num {
+    color: var(--kicker-num, var(--accent-deep));
+    letter-spacing: .16em;
+  }
+
+  .kicker::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--kicker-rule, var(--rule));
+    transform: translateY(-.2em);
+  }
+</style>

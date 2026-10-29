@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageIntro from '../../../components/layout/PageIntro.astro';
+import Projects from '../../../components/sections/Projects.astro';
+import { loadProjects } from '../../../lib/collections';
+import { useTranslations } from '../../../lib/i18n';
+import type { Lang } from '../../../lib/i18n';
+
+const lang: Lang = 'en';
+const dict = useTranslations(lang);
+const projects = await loadProjects(lang);
+---
+
+<BaseLayout title={dict.projects.page.metaTitle} description={dict.projects.page.metaDescription} lang={lang}>
+  <PageIntro title={dict.projects.page.title} lead={dict.projects.page.lead} />
+  <Projects lang={lang} projects={projects} />
+</BaseLayout>

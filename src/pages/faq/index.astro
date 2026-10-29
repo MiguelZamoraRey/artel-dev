@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageIntro from '../../components/layout/PageIntro.astro';
+import Faq from '../../components/sections/Faq.astro';
+import { useTranslations } from '../../lib/i18n';
+import type { Lang } from '../../lib/i18n';
+
+const lang: Lang = 'es';
+const dict = useTranslations(lang);
+---
+
+<BaseLayout title={dict.faq.page.metaTitle} description={dict.faq.page.metaDescription} lang={lang}>
+  <PageIntro title={dict.faq.page.title} lead={dict.faq.page.lead} />
+  <Faq lang={lang} />
+</BaseLayout>

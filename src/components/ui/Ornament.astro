@@ -1,0 +1,40 @@
+---
+interface Props {
+  size?: number;
+  class?: string;
+}
+
+const { size = 190, class: className } = Astro.props;
+---
+
+<svg class:list={['orn', className]} viewBox="0 0 240 40" width={size} aria-hidden="true" focusable="false">
+  <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+    <g>
+      <path d="M120 20 H196" />
+      <path d="M120 20 C134 20 142 12 152 12 C161 12 164 21 156 23 C150 24 148 18 153 16" />
+      <path d="M120 20 C134 20 142 28 152 28 C161 28 164 19 156 17 C150 16 148 22 153 24" />
+      <path d="M196 20 C204 14 214 14 220 18 C213 24 203 25 196 20" />
+      <path d="M196 20 C204 19 212 18 219 18" />
+      <circle cx="180" cy="20" r="1.6" />
+    </g>
+    <g transform="translate(240 0) scale(-1 1)">
+      <path d="M120 20 H196" />
+      <path d="M120 20 C134 20 142 12 152 12 C161 12 164 21 156 23 C150 24 148 18 153 16" />
+      <path d="M120 20 C134 20 142 28 152 28 C161 28 164 19 156 17 C150 16 148 22 153 24" />
+      <path d="M196 20 C204 14 214 14 220 18 C213 24 203 25 196 20" />
+      <path d="M196 20 C204 19 212 18 219 18" />
+      <circle cx="180" cy="20" r="1.6" />
+    </g>
+    <path d="M120 9 L125 20 L120 31 L115 20 Z" />
+    <circle cx="120" cy="20" r="1.2" />
+  </g>
+</svg>
+
+<style>
+  .orn {
+    display: block;
+    height: auto;
+    color: var(--ink-soft);
+    opacity: .6;
+  }
+</style>

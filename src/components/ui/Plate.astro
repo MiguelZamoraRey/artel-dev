@@ -1,0 +1,52 @@
+---
+interface Props {
+  number: string;
+  caption: string;
+  alt: string;
+  class?: string;
+}
+
+const { number, caption, alt, class: className } = Astro.props;
+---
+
+<figure class:list={['plate-figure', className]}>
+  <div class="plate-head">
+    <span class="plate-number mono">Lámina {number}</span>
+  </div>
+  <div class="plate-frame" role="img" aria-label={alt}>
+    <slot />
+  </div>
+  <figcaption class="plate-caption">Fig. {number} — {caption}</figcaption>
+</figure>
+
+<style>
+  .plate-figure {
+    margin: 0;
+  }
+
+  .plate-head {
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: .6rem;
+  }
+
+  .plate-number {
+    font-size: .68rem;
+    letter-spacing: .22em;
+    color: var(--ink-soft);
+  }
+
+  .plate-frame {
+    border: 1px solid var(--rule);
+    padding: clamp(1rem, 3vw, 2rem);
+  }
+
+  .plate-caption {
+    margin-top: .7rem;
+    text-align: right;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: .98rem;
+    color: var(--ink-soft);
+  }
+</style>

@@ -1,0 +1,124 @@
+---
+import { localizedPath, useTranslations } from '../../lib/i18n';
+import type { Lang } from '../../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const dict = useTranslations(lang);
+const home = localizedPath('/', lang);
+---
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-top">
+      <p class="eyebrow mono">{dict.hero.eyebrow}</p>
+      <p class="plate-no mono">{dict.hero.plate}</p>
+    </div>
+    <h1>
+      <span>{dict.hero.title}</span>
+      <em>{dict.hero.titleItalic}</em>
+    </h1>
+    <p class="lead">{dict.hero.lead}</p>
+    <div class="hero-foot">
+      <p class="eyebrow mono">{dict.hero.footLabel}</p>
+      <a class="quiet-link" href={`${home}#manifiesto`}>{dict.hero.footLink} <span aria-hidden="true">↓</span></a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: clamp(3.5rem, 10vh, 8rem) clamp(2.5rem, 6vh, 4.5rem);
+  }
+
+  .hero-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: clamp(2rem, 5vh, 3.5rem);
+  }
+
+  .eyebrow {
+    color: var(--ink-soft);
+  }
+
+  .plate-no {
+    color: var(--ink-soft);
+    letter-spacing: .22em;
+    white-space: nowrap;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: var(--step-4);
+    font-weight: 400;
+    line-height: .95;
+    letter-spacing: -.015em;
+    max-width: 19ch;
+  }
+
+  h1 span,
+  h1 em {
+    display: block;
+  }
+
+  h1 em {
+    font-weight: 300;
+    font-style: italic;
+    letter-spacing: -.01em;
+  }
+
+  .lead {
+    max-width: 52ch;
+    margin-top: clamp(1.75rem, 4vh, 2.5rem);
+    font-size: var(--step-1);
+    font-weight: 300;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  .hero-foot {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: clamp(2.5rem, 6vh, 4rem);
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .hero-foot .eyebrow {
+    font-size: .68rem;
+  }
+
+  .quiet-link {
+    font-family: var(--mono);
+    font-size: var(--step--1);
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ink);
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: .2rem;
+  }
+
+  .quiet-link:hover {
+    border-bottom-color: var(--ink);
+  }
+
+  @media (max-width: 640px) {
+    .hero-top {
+      flex-direction: column;
+      gap: .5rem;
+    }
+
+    .hero-top .plate-no {
+      align-self: flex-end;
+    }
+  }
+</style>

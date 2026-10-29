@@ -1,0 +1,50 @@
+---
+import logo from '../../assets/brand/logo.png';
+import { nextId } from '../../lib/ids';
+
+interface Props {
+  size?: number;
+  class?: string;
+}
+
+const { size = 40, class: className } = Astro.props;
+const maskId = nextId('mark-mask');
+---
+
+<svg class="mark-defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <mask id={maskId} maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox" style="mask-type:alpha">
+      <image href={logo.src} x="0" y="0" width="1" height="1" preserveAspectRatio="xMidYMid meet" />
+    </mask>
+  </defs>
+</svg>
+<span
+  class:list={['mark', className]}
+  role="img"
+  aria-label="artel"
+  style={`--mark-size:${size}px;-webkit-mask:url(#${maskId});mask:url(#${maskId})`}
+></span>
+
+<style>
+  .mark {
+    display: block;
+    flex: none;
+    width: var(--mark-size);
+    height: var(--mark-size);
+    background: currentColor;
+  }
+
+  .mark-defs {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+
+  @media (max-width: 820px) {
+    .mark {
+      width: min(var(--mark-size), 34px);
+      height: min(var(--mark-size), 34px);
+    }
+  }
+</style>

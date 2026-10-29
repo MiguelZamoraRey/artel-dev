@@ -1,0 +1,125 @@
+---
+import Kicker from '../ui/Kicker.astro';
+import Cta from '../ui/Cta.astro';
+import { useTranslations } from '../../lib/i18n';
+import type { Lang } from '../../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const dict = useTranslations(lang);
+const { join } = dict;
+---
+
+<section class="section" id="unirse">
+  <div class="wrap">
+    <Kicker number={join.number} label={join.kicker} />
+    <div class="join-head">
+      <h2>{join.title}</h2>
+      <p class="join-intro">{join.intro}</p>
+    </div>
+
+    <div class="join-grid">
+      <ol class="reqs">
+        {join.requirements.map((requirement, index) => (
+          <li>
+            <span class="req-n mono">{String(index + 1).padStart(2, '0')}</span>
+            <div>
+              <h3>{requirement.title}</h3>
+              <p>{requirement.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <aside class="join-cta">
+        <Cta label={join.ctaLabel} email={join.email} note={join.ctaNote} />
+      </aside>
+    </div>
+  </div>
+</section>
+
+<style>
+  .join-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: end;
+  }
+
+  .join-head h2 {
+    margin-bottom: 0;
+  }
+
+  .join-intro {
+    max-width: 42ch;
+    color: var(--ink-soft);
+    font-size: var(--step-1);
+    line-height: 1.55;
+  }
+
+  .join-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    margin-top: clamp(2.5rem, 6vh, 4rem);
+  }
+
+  .reqs {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+
+  .reqs li {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    gap: clamp(1rem, 2.5vw, 1.75rem);
+    padding-block: 1.4rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .req-n {
+    line-height: 1.65;
+    padding-top: .35rem;
+    color: var(--accent-deep);
+  }
+
+  .reqs h3 {
+    margin: 0 0 .35rem;
+    font-size: clamp(1.25rem, 1.1rem + .5vw, 1.45rem);
+    line-height: 1.2;
+  }
+
+  .reqs p {
+    max-width: 48ch;
+    color: var(--ink-soft);
+    font-size: calc(var(--step-0) * .95);
+    line-height: 1.6;
+  }
+
+  .join-cta {
+    align-self: start;
+    padding-left: clamp(1.5rem, 3vw, 3rem);
+    border-left: 1px solid var(--rule);
+  }
+
+  @media (max-width: 899px) {
+    .join-head {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+
+    .join-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .join-cta {
+      border-left: 0;
+      padding-left: 0;
+    }
+  }
+</style>

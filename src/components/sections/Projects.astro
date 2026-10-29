@@ -1,0 +1,158 @@
+---
+import Kicker from '../ui/Kicker.astro';
+import { localizedPath, useTranslations } from '../../lib/i18n';
+import type { Lang } from '../../lib/i18n';
+import type { ProjectView } from '../../lib/content';
+
+interface Props {
+  lang: Lang;
+  projects: ProjectView[];
+}
+
+const { lang, projects } = Astro.props;
+const dict = useTranslations(lang);
+const { projects: projectsDict } = dict;
+---
+
+<section class="section" id="proyectos">
+  <div class="wrap">
+    <Kicker number={projectsDict.number} label={projectsDict.kicker} />
+    <h2>{projectsDict.title}</h2>
+    <p class="section-intro">{projectsDict.intro}</p>
+
+    <div class="fiches">
+      {projects.map((project, index) => (
+        <article class="fiche">
+          <p class="fig mono">{projectsDict.fig} {index + 1} —</p>
+          <div>
+            <div class="fiche-top">
+              <h3>{project.data.title}</h3>
+              <p class="fiche-meta mono"><span class="dot" aria-hidden="true"></span>{projectsDict.status[project.data.status]} · {project.data.year}</p>
+            </div>
+            <p class="fiche-desc">{project.data.summary}</p>
+            <a class="fiche-link mono" href={localizedPath(`/proyectos/${project.slug}/`, lang)}>{projectsDict.link} <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .fiches {
+    margin-top: clamp(2.5rem, 6vh, 3.5rem);
+    border-top: 1px solid var(--rule);
+  }
+
+  .fiche {
+    position: relative;
+    display: grid;
+    grid-template-columns: 110px minmax(0, 1fr);
+    column-gap: clamp(1rem, 3vw, 2rem);
+    padding-block: clamp(1.5rem, 3.5vh, 2.2rem);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .fiche::before {
+    content: "";
+    position: absolute;
+    left: calc(-1 * clamp(.5rem, 1.5vw, 1.25rem));
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity .18s ease;
+  }
+
+  .fiche:hover::before {
+    opacity: .85;
+  }
+
+  .fig {
+    margin: 0;
+    padding-top: .5rem;
+    color: var(--ink-soft);
+    letter-spacing: .12em;
+    transition: color .18s ease;
+  }
+
+  .fiche:hover .fig {
+    color: var(--accent-deep);
+  }
+
+  .fiche-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .fiche h3 {
+    margin: 0;
+    font-size: clamp(1.6rem, 1.25rem + .9vw, 2.1rem);
+    line-height: 1.1;
+    letter-spacing: -.005em;
+  }
+
+  .fiche-meta {
+    margin: 0;
+    color: var(--ink-soft);
+    letter-spacing: .13em;
+  }
+
+  .fiche-meta .dot {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    margin-right: .5rem;
+    border-radius: 50%;
+    background: var(--accent);
+    vertical-align: .12em;
+  }
+
+  .fiche-desc {
+    max-width: 58ch;
+    margin-top: .55rem;
+    color: var(--ink-soft);
+    font-size: calc(var(--step-0) * .98);
+    line-height: 1.6;
+  }
+
+  .fiche-link {
+    display: inline-block;
+    line-height: 1.65;
+    margin-top: 1rem;
+    font-family: var(--mono);
+    font-size: var(--step--1);
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ink);
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: .2rem;
+  }
+
+  .fiche-link:hover {
+    border-bottom-color: var(--ink);
+  }
+
+  @media (max-width: 640px) {
+    .fiche {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: .35rem;
+    }
+
+    .fig {
+      padding-top: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fiche::before,
+    .fig {
+      transition: none;
+    }
+  }
+</style>

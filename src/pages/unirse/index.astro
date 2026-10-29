@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageIntro from '../../components/layout/PageIntro.astro';
+import Join from '../../components/sections/Join.astro';
+import { useTranslations } from '../../lib/i18n';
+import type { Lang } from '../../lib/i18n';
+
+const lang: Lang = 'es';
+const dict = useTranslations(lang);
+---
+
+<BaseLayout title={dict.join.page.metaTitle} description={dict.join.page.metaDescription} lang={lang}>
+  <PageIntro title={dict.join.page.title} lead={dict.join.page.lead} />
+  <Join lang={lang} />
+</BaseLayout>

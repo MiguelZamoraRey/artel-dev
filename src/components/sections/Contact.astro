@@ -1,0 +1,66 @@
+---
+import Kicker from '../ui/Kicker.astro';
+import Cta from '../ui/Cta.astro';
+import { useTranslations } from '../../lib/i18n';
+import type { Lang } from '../../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const dict = useTranslations(lang);
+const { contact } = dict;
+---
+
+<section class="section contact" id="contacto">
+  <div class="wrap">
+    <Kicker number={contact.number} label={contact.kicker} />
+    <div class="contact-grid">
+      <div>
+        <h2>{contact.title}</h2>
+        <p class="contact-intro">{contact.intro}</p>
+      </div>
+      <aside class="contact-cta">
+        <Cta label={contact.emailLabel} email={contact.email} note={contact.note} />
+      </aside>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: start;
+  }
+
+  .contact-grid h2 {
+    margin-bottom: 0;
+  }
+
+  .contact-intro {
+    max-width: 42ch;
+    margin-top: 1.25rem;
+    color: var(--ink-soft);
+    font-size: var(--step-1);
+    line-height: 1.55;
+  }
+
+  .contact-cta {
+    padding-left: clamp(1.5rem, 3vw, 3rem);
+    border-left: 1px solid var(--rule);
+  }
+
+  @media (max-width: 899px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-cta {
+      border-left: 0;
+      padding-left: 0;
+    }
+  }
+</style>

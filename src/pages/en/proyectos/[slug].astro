@@ -1,0 +1,137 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Kicker from '../../../components/ui/Kicker.astro';
+import { loadProjects } from '../../../lib/collections';
+import { localizedPath, useTranslations } from '../../../lib/i18n';
+import type { Lang } from '../../../lib/i18n';
+import type { ProjectView } from '../../../lib/content';
+
+const lang: Lang = 'en';
+const dict = useTranslations(lang);
+
+export async function getStaticPaths() {
+  const projects = await loadProjects('en');
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: ProjectView;
+}
+
+const { project } = Astro.props;
+const { data } = project;
+const status = dict.projects.status[data.status];
+---
+
+<BaseLayout title={`${data.title} — artel`} description={data.summary} lang={lang}>
+  <section class="project">
+    <div class="wrap">
+      <Kicker number={dict.projects.number} label={dict.projects.kicker} />
+      <h1>{data.title}</h1>
+      <p class="lead">{data.summary}</p>
+
+      <dl class="project-meta">
+        <div>
+          <dt class="mono">{dict.projects.detail.year}</dt>
+          <dd>{data.year}</dd>
+        </div>
+        <div>
+          <dt class="mono">{dict.projects.detail.status}</dt>
+          <dd>{status}</dd>
+        </div>
+        <div>
+          <dt class="mono">{dict.projects.detail.stack}</dt>
+          <dd>{data.stack.join(', ')}</dd>
+        </div>
+        {data.repo && (
+          <div>
+            <dt class="mono">{dict.projects.detail.repo}</dt>
+            <dd><a href={data.repo} rel="noopener noreferrer" target="_blank">{data.repo}</a></dd>
+          </div>
+        )}
+        {data.url && (
+          <div>
+            <dt class="mono">{dict.projects.detail.site}</dt>
+            <dd><a href={data.url} rel="noopener noreferrer" target="_blank">{data.url}</a></dd>
+          </div>
+        )}
+      </dl>
+
+      <a class="back mono" href={localizedPath('/proyectos/', lang)}>{dict.projects.detail.back} <span aria-hidden="true">←</span></a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .project {
+    padding-block: clamp(3.5rem, 10vh, 8rem) clamp(3.5rem, 8vh, 6rem);
+  }
+
+  .project h1 {
+    margin: 0;
+    font-size: var(--step-4);
+    font-weight: 400;
+    line-height: .95;
+    letter-spacing: -.015em;
+    max-width: 19ch;
+  }
+
+  .project .lead {
+    max-width: 52ch;
+    margin-top: clamp(1.75rem, 4vh, 2.5rem);
+    font-size: var(--step-1);
+    font-weight: 300;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  .project-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem 2.5rem;
+    margin: clamp(2rem, 5vh, 3rem) 0 0;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .project-meta dt {
+    margin-bottom: .35rem;
+    color: var(--ink-soft);
+  }
+
+  .project-meta dd {
+    margin: 0;
+    font-size: var(--step-0);
+    color: var(--ink);
+  }
+
+  .project-meta a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    overflow-wrap: anywhere;
+  }
+
+  .project-meta a:hover {
+    border-bottom-color: var(--ink);
+  }
+
+  .project .back {
+    display: inline-block;
+    margin-top: clamp(2rem, 5vh, 3rem);
+    font-size: var(--step--1);
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ink);
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: .2rem;
+  }
+
+  .project .back:hover {
+    border-bottom-color: var(--ink);
+  }
+</style>

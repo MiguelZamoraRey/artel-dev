@@ -1,0 +1,156 @@
+---
+import Logo from '../brand/Logo.astro';
+import { localizedPath, useTranslations } from '../../lib/i18n';
+import type { Lang } from '../../lib/i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const dict = useTranslations(lang);
+const year = new Date().getFullYear();
+const home = localizedPath('/', lang);
+const contact = localizedPath('/contacto/', lang);
+---
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href={home} aria-label={dict.common.homeLabel}>
+          <Logo size={32} />
+          <span class="wordmark">artel</span>
+        </a>
+        <p>{dict.footer.tagline}</p>
+      </div>
+      <div>
+        <p class="footer-label mono"><a href={contact}>{dict.footer.contactLabel}</a></p>
+        <p><a href="mailto:hola@artel.dev">hola@artel.dev</a></p>
+      </div>
+      <div>
+        <p class="footer-label mono">{dict.footer.documentsLabel}</p>
+        <ul>
+          {dict.footer.documents.map((document) => (
+            <li><span class="footer-doc">{document}</span></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>{dict.footer.signature}</p>
+      <p>© {year}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--rule);
+    background: var(--paper-deep);
+    padding-block: clamp(2.5rem, 6vh, 4rem) 1.5rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: .7rem;
+    text-decoration: none;
+    color: var(--ink);
+  }
+
+  .wordmark {
+    font-family: var(--display);
+    font-size: 1.45rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: .01em;
+  }
+
+  .footer-brand p {
+    max-width: 32ch;
+    margin-top: .75rem;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+  }
+
+  .footer-label {
+    margin-bottom: .6rem;
+    color: var(--ink-soft);
+    font-size: .66rem;
+  }
+
+  .footer a {
+    font-family: var(--mono);
+    font-size: .78rem;
+    letter-spacing: .04em;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+
+  .footer a:hover {
+    border-bottom-color: var(--accent);
+  }
+
+  .footer-label a {
+    font: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    border-bottom: 1px solid transparent;
+  }
+
+  .footer-label a:hover {
+    border-bottom-color: var(--accent);
+  }
+
+  .footer-doc {
+    font-family: var(--mono);
+    font-size: .78rem;
+    letter-spacing: .04em;
+    color: var(--ink);
+  }
+
+  .footer ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .footer li + li {
+    margin-top: .35rem;
+  }
+
+  .footer-bottom {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: clamp(2rem, 5vh, 3rem);
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .footer-bottom p {
+    font-family: var(--mono);
+    font-size: .68rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 640px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

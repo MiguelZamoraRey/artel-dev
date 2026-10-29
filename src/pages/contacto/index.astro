@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageIntro from '../../components/layout/PageIntro.astro';
+import Contact from '../../components/sections/Contact.astro';
+import { useTranslations } from '../../lib/i18n';
+import type { Lang } from '../../lib/i18n';
+
+const lang: Lang = 'es';
+const dict = useTranslations(lang);
+---
+
+<BaseLayout title={dict.contact.page.metaTitle} description={dict.contact.page.metaDescription} lang={lang}>
+  <PageIntro title={dict.contact.page.title} lead={dict.contact.page.lead} />
+  <Contact lang={lang} />
+</BaseLayout>

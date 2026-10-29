@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageIntro from '../components/layout/PageIntro.astro';
+import { localizedPath, useTranslations } from '../lib/i18n';
+import type { Lang } from '../lib/i18n';
+
+const lang: Lang = 'es';
+const dict = useTranslations(lang);
+---
+
+<BaseLayout
+  title={dict.notFound.metaTitle}
+  description={dict.notFound.metaDescription}
+  lang={lang}
+  alternates={false}
+  showLanguage={false}
+  canonical={false}
+>
+  <PageIntro title={dict.notFound.title} lead={dict.notFound.text} />
+  <section class="section">
+    <div class="wrap">
+      <div class="notfound-links">
+        <a class="quiet-link" href={localizedPath('/', lang)}>{dict.notFound.home}</a>
+        <a class="quiet-link" href={localizedPath('/contacto/', lang)}>{dict.notFound.contact}</a>
+        <a class="quiet-link" href={localizedPath('/', 'en')} lang="en" hreflang="en">{dict.notFound.english}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound-links {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .quiet-link {
+    font-family: var(--mono);
+    font-size: var(--step--1);
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ink);
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: .2rem;
+  }
+
+  .quiet-link:hover {
+    border-bottom-color: var(--ink);
+  }
+</style>

@@ -1,0 +1,42 @@
+:root {
+  color-scheme: light;
+  --paper: #F4ECD8;
+  --paper-deep: #EADFC4;
+  --ink: #323C2A;
+  --ink-soft: #5B6450;
+  --accent: #C0904B;
+  --accent-deep: #8A5E24;
+  --rule: rgba(50, 60, 42, .18);
+  --panel: #14140C;
+  --panel-ink: #E8E0CC;
+  --panel-soft: #BDB6A2;
+  --panel-rule: rgba(232, 224, 204, .16);
+  --panel-accent: #C0904B;
+  --display: "Cormorant Garamond", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --body: "Spectral", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --step--1: clamp(.70rem, .68rem + .08vw, .76rem);
+  --step-0: clamp(1.06rem, 1.01rem + .22vw, 1.19rem);
+  --step-1: clamp(1.18rem, 1.1rem + .35vw, 1.38rem);
+  --step-2: clamp(1.7rem, 1.35rem + 1.3vw, 2.6rem);
+  --step-3: clamp(2.1rem, 1.5rem + 2.6vw, 3.6rem);
+  --step-4: clamp(2.4rem, 1.1rem + 6.6vw, 7rem);
+  --pad: clamp(1.25rem, 4.5vw, 4.5rem);
+  --measure: 66ch;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #14140C;
+  --paper-deep: #1D1C13;
+  --ink: #E8E0CC;
+  --ink-soft: #BDB6A2;
+  --accent: #C0904B;
+  --accent-deep: #D9A867;
+  --rule: rgba(232, 224, 204, .16);
+  --panel: #F4ECD8;
+  --panel-ink: #323C2A;
+  --panel-soft: #5B6450;
+  --panel-rule: rgba(50, 60, 42, .18);
+  --panel-accent: #8A5E24;
+}

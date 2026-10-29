@@ -1,0 +1,103 @@
+---
+import { useTranslations } from '../../lib/i18n';
+import type { Lang } from '../../lib/i18n';
+import type { MemberView } from '../../lib/content';
+
+interface Props {
+  lang: Lang;
+  members: MemberView[];
+}
+
+const { lang, members } = Astro.props;
+const dict = useTranslations(lang);
+const { members: membersDict } = dict;
+---
+
+<section class="section" id="miembros">
+  <div class="wrap">
+    <h2>{membersDict.title}</h2>
+    <p class="section-intro">{membersDict.intro}</p>
+
+    <div class="member-list">
+      {members.map((member) => (
+        <article class="member">
+          <div class="member-head">
+            <h3>{member.data.name}</h3>
+            <p class="member-role mono">{member.data.role}</p>
+          </div>
+          <div>
+            <p class="member-bio">{member.data.bio}</p>
+            {member.data.links && member.data.links.length > 0 && (
+              <ul class="member-links">
+                {member.data.links.map((link) => (
+                  <li><a href={link.url} rel="noopener noreferrer" target="_blank">{link.label}</a></li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .member-list {
+    margin-top: clamp(2.5rem, 6vh, 3.5rem);
+    border-top: 1px solid var(--rule);
+  }
+
+  .member {
+    display: grid;
+    grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+    gap: clamp(1rem, 3vw, 2.5rem);
+    padding-block: clamp(1.5rem, 3.5vh, 2.2rem);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .member h3 {
+    margin: 0;
+    font-size: clamp(1.6rem, 1.25rem + .9vw, 2.1rem);
+    line-height: 1.1;
+  }
+
+  .member-role {
+    margin-top: .45rem;
+    color: var(--ink-soft);
+    letter-spacing: .13em;
+  }
+
+  .member-bio {
+    max-width: 52ch;
+    color: var(--ink-soft);
+    font-size: calc(var(--step-0) * .98);
+    line-height: 1.6;
+  }
+
+  .member-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .member-links a {
+    font-family: var(--mono);
+    font-size: var(--step--1);
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ink);
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: .2rem;
+  }
+
+  @media (max-width: 640px) {
+    .member {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: .75rem;
+    }
+  }
+</style>
