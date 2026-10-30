@@ -19,7 +19,9 @@ El sitio es estático (Astro SSG), se despliega en Cloudflare Pages y está en e
 - **Assets**: `docs/assets/` — marca y referencias de la dirección de arte.
 - **Aplicación**: `src/{pages,layouts,components,content,i18n,lib,styles,scripts,assets}`.
 - **Comandos SDD**: `.opencode/commands/sdd-*` (invoca `/sdd-*`).
-- **Skill**: `.agents/skills/sdd/`.
+- **Skill SDD**: `.agents/skills/sdd/` — flujo SDD.
+- **Skill MCPs**: `.agents/skills/mcps/` — servidores MCP, QA visual con Chrome DevTools y privacidad.
+- **Skill identidad visual**: `.agents/skills/identidad-visual/` — tokens, tema, tipografía, accesibilidad y checklist de UI.
 - **Agentes SDD**: `.opencode/agents/` (coordinator, planner, implementer, reviewer).
 
 ## Comandos

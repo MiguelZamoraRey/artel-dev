@@ -17,6 +17,7 @@ Memoria del proyecto entre sesiones. Máximo ~50 líneas: resume o elimina lo qu
 - **Fuentes autohospedadas** con Fontsource: privacidad y cero Google Fonts.
 - **Logo por máscara alfa** (`<mask>` SVG inline con el PNG) hasta el SVG monocromo definitivo.
 - **404 único en ES**, no indexable, sin selector de idioma; enlaza al inicio, contacto y home EN.
+- **Skills `mcps` e `identidad-visual`**: la primera fija el uso de MCPs (Chrome DevTools para QA visual y privacidad); la segunda, el sistema visual (tokens, tema, lámina y checklist) para que ninguna UI se salga.
 
 ## Aprendizajes y errores a evitar
 
