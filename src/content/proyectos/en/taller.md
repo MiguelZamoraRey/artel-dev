@@ -8,4 +8,5 @@ stack:
   - Astro
   - PostgreSQL
 order: 1
+draft: true
 ---

@@ -21,8 +21,12 @@ const projects = await loadProjects(lang);
   <Hero lang={lang} />
   <div class="orn-wrap" aria-hidden="true"><Ornament /></div>
   <Manifesto lang={lang} />
-  <Projects lang={lang} projects={projects} />
-  <div class="orn-wrap" aria-hidden="true"><Ornament /></div>
+  {projects.length > 0 && (
+    <>
+      <Projects lang={lang} projects={projects} />
+      <div class="orn-wrap" aria-hidden="true"><Ornament /></div>
+    </>
+  )}
   <NightPanel lang={lang} />
   <Join lang={lang} />
   <div class="orn-wrap" aria-hidden="true"><Ornament /></div>

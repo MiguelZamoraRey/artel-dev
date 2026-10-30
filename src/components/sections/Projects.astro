@@ -18,27 +18,67 @@ const { projects: projectsDict } = dict;
   <div class="wrap">
     <Kicker number={projectsDict.number} label={projectsDict.kicker} />
     <h2>{projectsDict.title}</h2>
-    <p class="section-intro">{projectsDict.intro}</p>
 
-    <div class="fiches">
-      {projects.map((project, index) => (
-        <article class="fiche">
-          <p class="fig mono">{projectsDict.fig} {index + 1} —</p>
-          <div>
-            <div class="fiche-top">
-              <h3>{project.data.title}</h3>
-              <p class="fiche-meta mono"><span class="dot" aria-hidden="true"></span>{projectsDict.status[project.data.status]} · {project.data.year}</p>
-            </div>
-            <p class="fiche-desc">{project.data.summary}</p>
-            <a class="fiche-link mono" href={localizedPath(`/proyectos/${project.slug}/`, lang)}>{projectsDict.link} <span aria-hidden="true">→</span></a>
-          </div>
-        </article>
-      ))}
-    </div>
+    {projects.length > 0 ? (
+      <>
+        <p class="section-intro">{projectsDict.intro}</p>
+
+        <div class="fiches">
+          {projects.map((project, index) => (
+            <article class="fiche">
+              <p class="fig mono">{projectsDict.fig} {index + 1} —</p>
+              <div>
+                <div class="fiche-top">
+                  <h3>{project.data.title}</h3>
+                  <p class="fiche-meta mono"><span class="dot" aria-hidden="true"></span>{projectsDict.status[project.data.status]} · {project.data.year}</p>
+                </div>
+                <p class="fiche-desc">{project.data.summary}</p>
+                <a class="fiche-link mono" href={localizedPath(`/proyectos/${project.slug}/`, lang)}>{projectsDict.link} <span aria-hidden="true">→</span></a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </>
+    ) : (
+      <div class="empty">
+        <p>{projectsDict.page.empty}</p>
+        <a class="empty-cta mono" href={localizedPath('/unirse/', lang)}>{projectsDict.page.emptyCta} <span aria-hidden="true">→</span></a>
+      </div>
+    )}
   </div>
 </section>
 
 <style>
+  .empty {
+    margin-top: clamp(2.5rem, 6vh, 3.5rem);
+    padding-top: clamp(1.5rem, 3.5vh, 2.2rem);
+    border-top: 1px solid var(--rule);
+  }
+
+  .empty p {
+    max-width: 58ch;
+    color: var(--ink-soft);
+    font-size: calc(var(--step-0) * .98);
+    line-height: 1.6;
+  }
+
+  .empty-cta {
+    display: inline-block;
+    margin-top: 1rem;
+    font-family: var(--mono);
+    font-size: var(--step--1);
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ink);
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: .2rem;
+  }
+
+  .empty-cta:hover {
+    border-bottom-color: var(--ink);
+  }
+
   .fiches {
     margin-top: clamp(2.5rem, 6vh, 3.5rem);
     border-top: 1px solid var(--rule);

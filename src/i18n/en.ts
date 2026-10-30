@@ -46,7 +46,7 @@ export const en = {
   projects: {
     number: 'II',
     kicker: 'Projects',
-    title: 'Three projects underway.',
+    title: 'Projects underway.',
     intro: 'Some are born inside and are looking for a team. Others already have clients. All of them can be told without embellishment.',
     fig: 'Fig.',
     link: 'View project',
@@ -67,6 +67,8 @@ export const en = {
     page: {
       title: 'Projects.',
       lead: 'The projects artel incubates and maintains.',
+      empty: 'We are incubating our first projects. There are no published entries yet.',
+      emptyCta: 'How to join',
       metaTitle: 'Projects — artel',
       metaDescription: 'The projects artel incubates and maintains.',
     },

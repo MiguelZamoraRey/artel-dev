@@ -54,6 +54,8 @@ export interface Dictionary {
     page: {
       title: string;
       lead: string;
+      empty: string;
+      emptyCta: string;
       metaTitle: string;
       metaDescription: string;
     };

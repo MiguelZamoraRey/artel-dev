@@ -46,7 +46,7 @@ export const es = {
   projects: {
     number: "II",
     kicker: "Proyectos",
-    title: "Tres proyectos en marcha.",
+    title: "Proyectos en marcha.",
     intro:
       "Unos nacen dentro y buscan equipo. Otros ya tienen clientes. Todos se pueden contar sin adornos.",
     fig: "Fig.",
@@ -68,6 +68,8 @@ export const es = {
     page: {
       title: "Proyectos.",
       lead: "Los proyectos que artel incuba y mantiene.",
+      empty: "Estamos incubando los primeros proyectos. Todavía no hay fichas publicadas.",
+      emptyCta: "Cómo unirse",
       metaTitle: "Proyectos — artel",
       metaDescription: "Los proyectos que artel incuba y mantiene.",
     },

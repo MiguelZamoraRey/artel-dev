@@ -8,4 +8,5 @@ stack:
   - Docker
   - Caddy
 order: 3
+draft: true
 ---

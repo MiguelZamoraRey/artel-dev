@@ -8,4 +8,5 @@ stack:
   - SQLite
   - MapLibre
 order: 2
+draft: true
 ---

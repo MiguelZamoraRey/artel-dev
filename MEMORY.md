@@ -5,7 +5,7 @@ Memoria del proyecto entre sesiones. Máximo ~50 líneas: resume o elimina lo qu
 ## Estado actual
 
 - **artel** es una comunidad de desarrollo de software (modelo cooperativo) y una incubadora privada de proyectos. Web pública estática en **Astro 7.4.4** (SSG), **TypeScript 6**, **Vitest 5**, desplegada en **Cloudflare Pages**.
-- **19 rutas**: home, proyectos, 3 fichas de proyecto, socios, unirse, FAQ, contacto y 404 en ES; las mismas (sin 404) bajo `/en/`. Proyectos y socios en Markdown (Content Collections + Zod); copy en `src/i18n/{es,en}.ts`.
+- **13 páginas**: home, proyectos, socios, unirse, FAQ, contacto y 404 en ES (7); las mismas seis sin 404 bajo `/en/`. Sin fichas de proyecto publicadas: los ejemplos (`taller`, `cuaderno`, `umbral`) están en `draft: true`. Proyectos y socios en Markdown (Content Collections + Zod); copy en `src/i18n/{es,en}.ts`.
 - Dirección de arte: tratado de historia natural del s. XIX; tema claro/oscuro; lámina SVG que se dibuja con el scroll.
 
 ## Decisiones (y por qué)
@@ -18,6 +18,8 @@ Memoria del proyecto entre sesiones. Máximo ~50 líneas: resume o elimina lo qu
 - **Logo por máscara alfa** (`<mask>` SVG inline con el PNG) hasta el SVG monocromo definitivo.
 - **404 único en ES**, no indexable, sin selector de idioma; enlaza al inicio, contacto y home EN.
 - **Skills `mcps` e `identidad-visual`**: la primera fija el uso de MCPs (Chrome DevTools para QA visual y privacidad); la segunda, el sistema visual (tokens, tema, lámina y checklist) para que ninguna UI se salga.
+- **Proyectos de ejemplo en `draft: true`** (`taller`, `cuaderno`, `umbral`, ES y EN): la home y el nav ocultan Proyectos mientras no haya publicados y `/proyectos/` muestra un estado vacío; la numeración mantiene la **II** reservada.
+- **Publicar el primer proyecto real** (`draft: false`) hace reaparecer sección, nav y ficha sin tocar código.
 
 ## Aprendizajes y errores a evitar
 
@@ -31,6 +33,5 @@ Memoria del proyecto entre sesiones. Máximo ~50 líneas: resume o elimina lo qu
 
 - SVG monocromo del logo y favicon; retirar la máscara PNG.
 - Specs `001-identidad-visual`, `002-laminas-scroll`, `003-colecciones`, `004-paginas`, `005-despliegue`.
-- Sustituir los socios y los stacks placeholder por datos reales.
 - Decidir si el manifiesto y la FAQ pasan a una colección `paginas`.
 - MCPs del entorno de agentes.

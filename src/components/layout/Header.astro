@@ -7,15 +7,18 @@ import type { Lang } from '../../lib/i18n';
 interface Props {
   lang: Lang;
   showLanguage?: boolean;
+  showProjects?: boolean;
 }
 
-const { lang, showLanguage = true } = Astro.props;
+const { lang, showLanguage = true, showProjects = true } = Astro.props;
 const dict = useTranslations(lang);
 const path = Astro.url.pathname;
 const home = localizedPath('/', lang);
 const nav = [
   { label: dict.nav.manifesto, href: `${home}#manifiesto` },
-  { label: dict.nav.projects, href: localizedPath('/proyectos/', lang) },
+  ...(showProjects
+    ? [{ label: dict.nav.projects, href: localizedPath('/proyectos/', lang) }]
+    : []),
   { label: dict.nav.members, href: localizedPath('/socios/', lang) },
   { label: dict.nav.join, href: localizedPath('/unirse/', lang) },
   { label: dict.nav.faq, href: localizedPath('/faq/', lang) },
