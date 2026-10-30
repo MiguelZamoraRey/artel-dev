@@ -34,9 +34,9 @@ html[data-theme="dark"] {
   --accent: #C0904B;
   --accent-deep: #D9A867;
   --rule: rgba(232, 224, 204, .16);
-  --panel: #F4ECD8;
-  --panel-ink: #323C2A;
-  --panel-soft: #5B6450;
-  --panel-rule: rgba(50, 60, 42, .18);
-  --panel-accent: #8A5E24;
+  --panel: #2B271C;
+  --panel-ink: #E8E0CC;
+  --panel-soft: #C4BBA4;
+  --panel-rule: rgba(232, 224, 204, .20);
+  --panel-accent: #D9A867;
 }

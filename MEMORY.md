@@ -1,28 +1,35 @@
-# MEMORY.md — Diario de Estudio
+# MEMORY.md — artel
 
-Memoria del proyecto entre sesiones. Máximo ~50 líneas: resume o elimina lo que ya no
-aporte.
+Memoria del proyecto entre sesiones. Máximo ~50 líneas: resume o elimina lo que ya no aporte.
 
 ## Estado actual
 
-- Template migrada a **opencode v2** (binario `opencode2`/v2): agentes multiagente en `.opencode/agents/` con formato `permissions:` (array action/resource/effect), comandos en `.opencode/commands/`, MCP en `mcp.servers`.
-- SDD del curso Mouredev: skill `sdd`, 9 comandos `/sdd-*`, estructura `specs/NNN-nombre/{spec,plan,tasks}.md`, `docs/constitution.md`, estados `borrador → aprobada → implementada`.
-- Comando `init-project` con sección opcional de MCPs (GitHub, Context7, Chrome DevTools, Playwright, PostgreSQL) que auto-configura `opencode.json` (forma v2).
+- **artel** es una comunidad de desarrollo de software (modelo cooperativo) y una incubadora privada de proyectos. Web pública estática en **Astro 7.4.4** (SSG), **TypeScript 6**, **Vitest 5**, desplegada en **Cloudflare Pages**.
+- **19 rutas**: home, proyectos, 3 fichas de proyecto, socios, unirse, FAQ, contacto y 404 en ES; las mismas (sin 404) bajo `/en/`. Proyectos y socios en Markdown (Content Collections + Zod); copy en `src/i18n/{es,en}.ts`.
+- Dirección de arte: tratado de historia natural del s. XIX; tema claro/oscuro; lámina SVG que se dibuja con el scroll.
 
 ## Decisiones (y por qué)
 
-- **v2 como objetivo** (el curso usa v2): en agentes `permissions:` es lista ordenada `{action, resource, effect}` (acciones `shell`, `edit`, `subagent`, `read`...); en v1 sería `permission:` mapa (`bash`/`task`). No mezclar.
-- **SDD**: requisitos en EARS (`RF-x`: CUANDO/SI-ENTONCES/MIENTRAS/EL SISTEMA) + historias `HU-x`; flujo Constitución→Spec→Clarificación→Plan→Tareas→Implementación→Validación→Cambio; modelo spec-anchored.
-- Skills en `.agents/skills/`; v2 las descubre como fuente de compatibilidad.
-- MCPs: bajo `mcp.servers` en `opencode.json`, secretos con `{env:VAR}` + `.env.example`. Los servidores se conectan solos; `disabled: true` para desactivar.
-- Comandos/skill/agentes usan "el comando de test del proyecto" (genérico), no `node --test` hardcodeado.
+- **SSG sin adapter**: la web es informativa; Cloudflare Pages sirve `dist/`. Sin servidor ni runtime.
+- **Tema con `data-theme`** en `<html>`, `localStorage['artel-theme']` y `prefers-color-scheme` en la primera visita. El script del `<head>` corre antes del CSS para evitar FOUC. Sin opción «auto».
+- **El panel de Socios no se invierte**: es oscuro en ambos temas (`#14140C` en claro, `#2B271C` en oscuro, con marco y viñeta). El papel claro en oscuro deslumbraba.
+- **Contenido en colecciones + copy en i18n**: editar proyectos o socios no toca componentes; el copy de interfaz comparte un `Dictionary` y cae a ES si falta la versión EN.
+- **Fuentes autohospedadas** con Fontsource: privacidad y cero Google Fonts.
+- **Logo por máscara alfa** (`<mask>` SVG inline con el PNG) hasta el SVG monocromo definitivo.
+- **404 único en ES**, no indexable, sin selector de idioma; enlaza al inicio, contacto y home EN.
 
 ## Aprendizajes y errores a evitar
 
-- En v2, la tecla para cambiar de agente es **Shift+Tab** (Tab se usa para autocompletar).
-- opencode hace `bun install` en `.opencode/` si hay `package.json`; no borrarlo, es la convención.
-- Nunca escribir secretos reales en `opencode.json`.
+- `mask-image: url(../assets/logo.png)` se bloquea al abrir con `file://`; usar un `<mask>` SVG inline con `<image href>`.
+- `--accent` (#C0904B) no pasa AA como texto sobre papel (2,4:1); usar `--accent-deep` (#8A5E24, 4,8:1).
+- pnpm 12 + `@astrojs/check` exige TypeScript ≤ 6 (el peer es `^5 || ^6`).
+- Astro scopea también el ancestro `.js`; como el `class="js"` vive en `<html>`, el selector del botón necesita `:global(.js)`.
+- Los elementos mono que en el proto no estaban en el grupo de versalitas necesitan `line-height: 1.65` explícito para no desplazar las secciones.
 
 ## Próximos pasos
 
-- (vacío por ahora)
+- SVG monocromo del logo y favicon; retirar la máscara PNG.
+- Specs `001-identidad-visual`, `002-laminas-scroll`, `003-colecciones`, `004-paginas`, `005-despliegue`.
+- Sustituir los socios y los stacks placeholder por datos reales.
+- Decidir si el manifiesto y la FAQ pasan a una colección `paginas`.
+- MCPs del entorno de agentes.

@@ -4,17 +4,34 @@ Convenciones y flujo de trabajo para cualquier agente que trabaje en este reposi
 
 ## Qué es este proyecto
 
-Este proyecto es un boilerplate para desarrollo con SDD de cualquier proyecto, lo primero que debes hacer es redifinir este AGENTS.md y el README.md para el proyecto que vaya a comenzar el usuario.
+**artel** es una comunidad de personas que desarrollan software, organizada como cooperativa, y una incubadora privada de proyectos. Esta web es su puerta de entrada pública: el manifiesto, los proyectos, los socios, cómo unirse, las preguntas frecuentes y el contacto. Los repositorios y el trabajo diario viven fuera de esta web.
 
-> Esta template está pensada para **opencode v2** (formatos v2: agentes con `permissions:` array, MCP bajo `mcp.servers`, comandos en `.opencode/commands/`). En la TUI, el cambio de agente es **Shift+Tab**.
+El sitio es estático (Astro SSG), se despliega en Cloudflare Pages y está en español por defecto (`/`) e inglés en `/en/…`. El contenido de proyectos y socios se edita en Markdown (Content Collections + Zod); el copy de la interfaz vive en `src/i18n/`. La dirección de arte es un tratado de historia natural del siglo XIX —papel, grabado, láminas, marginalia— con tema claro y oscuro.
+
+> El repositorio se trabaja con **opencode v2**: agentes con `permissions:` array, MCP bajo `mcp.servers` y comandos en `.opencode/commands/`. En la TUI, el cambio de agente es **Shift+Tab**.
 
 ## Estructura
 
-- **Constitución**: `docs/constitution.md` (principios innegociables del proyecto).
+- **Constitución**: `docs/constitution.md` — principios innegociables.
+- **Diseño**: `docs/design.md` — sistema visual, tokens, tipografía y componentes.
 - **Specs**: `specs/NNN-nombre/` con `spec.md`, `plan.md` y `tasks.md`.
-- **Comandos SDD**: `.opencode/commands/sdd-*.md` (invoca `/sdd-*`).
+- **Prototipo**: `docs/proto/` — referencia visual aprobada; desechable.
+- **Assets**: `docs/assets/` — marca y referencias de la dirección de arte.
+- **Aplicación**: `src/{pages,layouts,components,content,i18n,lib,styles,scripts,assets}`.
+- **Comandos SDD**: `.opencode/commands/sdd-*` (invoca `/sdd-*`).
 - **Skill**: `.agents/skills/sdd/`.
 - **Agentes SDD**: `.opencode/agents/` (coordinator, planner, implementer, reviewer).
+
+## Comandos
+
+| Comando | Qué hace |
+|---|---|
+| `pnpm dev` | Servidor de desarrollo. |
+| `pnpm build` | Genera el sitio estático en `dist/`. |
+| `pnpm preview` | Sirve el build para revisarlo. |
+| `pnpm check` | Typecheck con `astro check`. |
+| `pnpm test` | Tests de Vitest. |
+| `pnpm test:watch` | Tests en modo watch. |
 
 ## Flujo de trabajo SDD
 
@@ -26,8 +43,8 @@ Una spec pasa por `borrador` → `aprobada` → `implementada` (línea "Estado:"
 
 ### 1. Constitución
 
-- `docs/constitution.md` define los principios innegociables. Crea o adapta con `/sdd-constitution`.
-- Toda spec, plan y tarea debe cumplirlos.
+- `docs/constitution.md` define los principios innegociables. Toda spec, plan y tarea debe cumplirlos.
+- Los cambios de principios se hacen con `/sdd-constitution`.
 
 ### 2. Especificar
 
@@ -67,29 +84,35 @@ Una spec pasa por `borrador` → `aprobada` → `implementada` (línea "Estado:"
 - **La spec manda.** No implementes lógica no descrita en la spec sin avisar.
 - **Requisitos en EARS** (`RF-x`) verificables; nada de "rápido", "intenso" o "bonito" sin criterio medible.
 - **TypeScript estricto.** No uses `any` salvo justificación.
-- **Tests** con el comando de test del proyecto; uno por RF cuando aplique.
+- **CSS propio con tokens.** Los colores, tipografías y medidas salen de `src/styles/tokens.css`. Prohibido Tailwind, CSS-in-JS o frameworks de UI.
+- **Sin JS de cliente** salvo islas justificadas; sin librerías.
+- **Contenido = datos.** Proyectos y socios en `src/content/`; copy de interfaz en `src/i18n/`; nada hardcodeado en componentes.
+- **Toda cadena visible existe en ES y EN.**
+- **Accesibilidad AA**: contraste, `:focus-visible`, `prefers-reduced-motion` y funcionamiento sin JS.
+- **Tests Vitest** para la lógica pura de `src/lib/`.
+- **Fuentes autohospedadas** (Fontsource), sin Google Fonts.
 - **No añadas comentarios** innecesarios; el código debe explicarse por sí mismo.
-- **Documentación**: cualquier cambio relevante de arquitectura se refleja en `README.md` y `AGENTS.md`.
-- **Commits**: los realiza siempre el mantenedor. Los agentes **nunca** commitean ni hacen push.
+- **Documentación**: los cambios de arquitectura o diseño se reflejan en `README.md`, `AGENTS.md` y `docs/design.md`.
 
 ## Seguridad
 
 - No commitees secretos ni claves. Usa `.env.example` en lugar de `.env`.
-- Valida toda entrada de usuario en backend antes de procesarla.
+- El contenido se valida con Zod en build; no hay backend ni entradas de usuario en runtime.
+- El contacto es `mailto:`; sin formularios de terceros ni trackers.
 - Aplica principios OWASP en las specs (validación, autorización, datos sensibles).
+
+## Commits
+
+- Los realiza siempre el mantenedor. Los agentes **nunca** commitean ni hacen push.
 
 ## Antes de terminar
 
-- Ejecuta `pnpm test` y `pnpm check` en el/los proyecto(s) afectados.
-- Si tocas el frontend, confirma que no hay errores de build (`pnpm build`).
+- `pnpm check`, `pnpm test` y `pnpm build` en verde.
 
 ## Memoria
 
-- Al empezar, lee `MEMORY.md` para conocer el estado del proyecto y las decisiones
-  tomadas.
-- Al terminar una tarea, actualízalo: estado actual, decisiones importantes (con su
-  porqué) y errores a evitar.
+- Al empezar, lee `MEMORY.md` para conocer el estado del proyecto y las decisiones tomadas.
+- Al terminar una tarea, actualízalo: estado actual, decisiones importantes (con su porqué) y errores a evitar.
 - Mantenlo breve (máximo ~50 líneas): resume o elimina lo que ya no aporte.
-- Si algo se convierte en una regla permanente, propón moverlo a `AGENTS.md` en lugar de
-  dejarlo en la memoria.
-- No guardes nunca datos sensibles (claves, tokens, datos personales)
+- Si algo se convierte en una regla permanente, propón moverlo a `AGENTS.md` en lugar de dejarlo en la memoria.
+- No guardes nunca datos sensibles (claves, tokens, datos personales).
